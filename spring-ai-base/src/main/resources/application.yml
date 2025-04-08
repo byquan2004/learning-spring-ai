@@ -1,15 +1,36 @@
 spring:
   application:
-    name: "spring-ai"
+    name: spring-ai-demo
+  data:
+    redis:
+      host: localhost
+      username: root
+      password: qwe123
+      port: 16379
   ai:
     openai:
       base-url: https://openrouter.ai/api
-      api-key: ${OPENROUTER_API_KEY}
+      api-key: ${OPENROUTER_APIKEY}
       chat:
         options:
-#          model: deepseek/deepseek-chat-v3-0324:free
+          model: deepseek/deepseek-chat-v3-0324:free
 #          model: google/gemini-2.0-flash-thinking-exp:free
-          model: deepseek/deepseek-r1:free
+#          model: deepseek/deepseek-r1:free
+      embedding:
+        enabled: false
+    ollama:
+      base-url: http://${CLOUD_SERVER}:11434
+      chat:
+        options:
+#          model: llama3.1:8b
+          model: llava:7b
+      embedding:
+        model: nomic-embed-text:latest
+#    vectorstore:
+#      redis:
+#        initialize-schema: true
+#        index-name: quan-ai
+#        prefix: quan-ai
 
 logging:
   level:

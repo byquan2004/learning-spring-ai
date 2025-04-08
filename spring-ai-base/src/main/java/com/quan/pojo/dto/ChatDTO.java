@@ -1,7 +1,5 @@
 package com.quan.pojo.dto;
 
-import com.quan.pojo.constant.ChatType;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 

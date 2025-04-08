@@ -1,4 +1,4 @@
-package com.quan.pojo.constant;
+package com.quan.pojo.constants;
 
 public enum ChatType {
 

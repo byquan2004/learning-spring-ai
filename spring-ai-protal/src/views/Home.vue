@@ -40,14 +40,14 @@ const aiApps = ref([
     route: '/ai-chat',
     icon: ChatBubbleLeftRightIcon
   },
-  // {
-  //   id: 2,
-  //   title: '哄哄模拟器',
-  //   description: '一个帮助你练习哄女朋友开心的小游戏',
-  //   route: '/game',
-  //   icon: HeartIcon,
-  //   iconClass: 'heart-icon'
-  // },
+  {
+    id: 2,
+    title: '我的脾气女友',
+    description: '一个帮助你练习哄女朋友开心的小游戏',
+    route: '/game',
+    icon: HeartIcon,
+    iconClass: 'heart-icon'
+  },
   // {
   //   id: 3,
   //   title: '黑马智能客服',
