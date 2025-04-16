@@ -99,7 +99,7 @@ export const chatAPI = {
   // 发送 PDF 问答消息
   async sendPdfMessage(prompt, chatId) {
     try {
-      const response = await fetch(`${BASE_URL}/ai/pdf/chat?prompt=${encodeURIComponent(prompt)}&chatId=${chatId}`, {
+      const response = await fetch(`${BASE_URL}/ai/pdf?prompt=${encodeURIComponent(prompt)}&chatId=${chatId}`, {
         method: 'GET',
         // 确保使用流式响应
         signal: AbortSignal.timeout(30000) // 30秒超时

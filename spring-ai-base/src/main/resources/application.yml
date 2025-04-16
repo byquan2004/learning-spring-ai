@@ -4,34 +4,37 @@ spring:
   data:
     redis:
       host: localhost
-      username: root
       password: qwe123
       port: 16379
   ai:
-    openai:
-      base-url: https://openrouter.ai/api
-      api-key: ${OPENROUTER_APIKEY}
-      chat:
-        options:
-          model: deepseek/deepseek-chat-v3-0324:free
-#          model: google/gemini-2.0-flash-thinking-exp:free
-#          model: deepseek/deepseek-r1:free
-      embedding:
-        enabled: false
     ollama:
       base-url: http://${CLOUD_SERVER}:11434
       chat:
         options:
-#          model: llama3.1:8b
           model: llava:7b
       embedding:
+        enabled: false
         model: nomic-embed-text:latest
-#    vectorstore:
-#      redis:
-#        initialize-schema: true
-#        index-name: quan-ai
-#        prefix: quan-ai
+    openai:
+      base-url: https://api.siliconflow.cn
+      api-key: ${SILICONFLOW_APIKEY}
+      chat:
+        options:
+          model: Qwen/Qwen2.5-7B-Instruct
+      embedding:
+        options:
+          model: BAAI/bge-m3
+    vectorstore:
+      redis:
+        index: quan_ai
+        initialize-schema: true
+        prefix: quan_ai
 
+  # 设置上传文件大小
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 logging:
   level:
     org.springframework.ai.chat: debug

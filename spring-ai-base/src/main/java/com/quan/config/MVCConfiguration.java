@@ -12,6 +12,8 @@ public class MVCConfiguration implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                .allowedHeaders("*");
+                .allowedHeaders("*")
+                // 配置跨域请求暴露响应头 让前端拿到文件名
+                .exposedHeaders("Content-Disposition");
     }
 }

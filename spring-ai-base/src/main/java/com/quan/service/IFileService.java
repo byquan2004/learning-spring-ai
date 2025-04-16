@@ -1,16 +1,17 @@
 package com.quan.service;
 
-import org.springframework.ai.document.Document;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
+import org.springframework.core.io.Resource;
 
 public interface IFileService {
 
     /**
-     * 文档解析
+     * 文档向量化
      * @param doc
      * @return
      */
-    List<Document> docReader(MultipartFile doc);
+    void docReader(Resource doc);
+
+    Resource getFile(String chatId);
+
+    boolean save(String chatId, Resource resource);
 }

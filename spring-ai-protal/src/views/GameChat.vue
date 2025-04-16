@@ -3,7 +3,7 @@
     <div class="game-container">
       <!-- 游戏开始界面 -->
       <div v-if="!isGameStarted" class="game-start">
-        <h2>我的脾气女友</h2>
+        <h2>哄哄模拟器</h2>
         <div class="input-area">
           <textarea
             v-model="angerReason"
