@@ -4,15 +4,23 @@ import com.quan.pojo.dto.ChatDTO;
 import com.quan.service.IChatHistoryService;
 import com.quan.service.IFileService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
+import org.springframework.ai.model.Media;
 import org.springframework.core.io.Resource;
+import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/ai")
@@ -38,12 +46,25 @@ public class ChatController {
     public Flux<String> chat(ChatDTO chatDTO) {
 
         chatHistoryService.save(chatDTO.getType(),chatDTO.getSessionId());
+        if(ObjectUtils.isEmpty(chatDTO.getFiles())){
+            return defaultModel.prompt()
+                    .user(chatDTO.getPrompt())
+                    .advisors(a -> a.param(AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY, chatDTO.getSessionId()))
+                    .stream()
+                    .content();
+        }else {
+            List<Media> mediaList = chatDTO.getFiles().stream()
+                    .map(file -> new Media(
+                            MimeType.valueOf(Objects.requireNonNull(file.getContentType())),
+                            file.getResource()
+                    ) ).toList();
+            return defaultModel.prompt()
+                    .user(p -> p.text(chatDTO.getPrompt()).media(mediaList.toArray(Media[]::new)))
+                    .advisors(a -> a.param(AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY, chatDTO.getSessionId()))
+                    .stream()
+                    .content();
+        }
 
-        return defaultModel.prompt()
-                .user(chatDTO.getPrompt())
-                .advisors(a -> a.param(AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY, chatDTO.getSessionId()))
-                .stream()
-                .content();
     }
 
     /**

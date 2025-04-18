@@ -8,7 +8,7 @@ spring:
       port: 16379
   ai:
     ollama:
-      base-url: http://${CLOUD_SERVER}:11434
+      base-url: http://${SERVER}:11434
       chat:
         options:
           model: llava:7b
@@ -17,7 +17,7 @@ spring:
         model: nomic-embed-text:latest
     openai:
       base-url: https://api.siliconflow.cn
-      api-key: ${SILICONFLOW_APIKEY}
+      api-key: ${GJLD_APIKEY}
       chat:
         options:
           model: Qwen/Qwen2.5-7B-Instruct
